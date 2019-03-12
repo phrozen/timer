@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            width: 100%;
+            background-color: #101010;
+            color: #EAEAEA;
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+        }
+        hr {
+            width: 80%;
+            height: 2px;
+            margin: 25px auto;
+            border: none;
+            background-image: linear-gradient(to right,rgba(23,212,254,0),rgba(23,212,254,1),rgba(23,212,254,0));
+        }
+        #clock {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            color: #17D4FE;
+        }
+        #picker, #generate, .flatpickr-input {
+            padding: 0 1rem;
+            font-size: 1.5rem;
+            line-height: 3rem;
+            border: 1px solid#17D4FE;
+        }
+        #generate {
+            background-color: #17D4FE;
+        }
+        #picker, .flatpickr-input {
+            min-width: 360px;
+            color: #EAEAEA;
+            background: #101010;
+        }
+        #url {
+            color:#17D4FE;
+            font-size: 2rem;
+            margin: 1rem;
+        }
+        #timer {
+            font-size: 5rem;
+        }
+        .red {
+            color: #FE1768;
+        }
+        .green {
+            color: #17FE17;
+        }
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+</head>
+<body>
+    <p style="margin: 0">Your current time.</p>
+    <div id="clock"></div>
+    <hr>
+    <input type="text" id="picker" placeholder="Select date and time...">
+    <button id="generate" onclick="generate();">Generate</button>
+    <br><br><br>
+    <div id="timer"></div>
+    <br>
+    <p>
+        <a href="" id="url"></a>
+        <br>
+        Share this timer.
+    </p>
+    
+<script type="text/javascript">
+
+flatpickr("#picker", {
+    enableTime: true,
+    altInput: true,
+    dateFormat: "Z",
+    altFormat: "F j, Y at H:i K",
+});
+
+function ticktack() {
+    let date = new Date();
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let s = date.getSeconds();
+    var session = "AM";
+    if(h == 0){
+        h = 12;
+    }
+    if(h > 12){
+        h = h - 12;
+        session = "PM";
+    }
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+    s = (s < 10) ? "0" + s : s;
+    let time = h + ":" + m + ":" + s + " " + session;
+    document.getElementById("clock").innerText = time;
+    document.getElementById("clock").textContent = time;
+}
+ticktack();
+update();
+setInterval(ticktack, 500);
+setInterval(update, 1000);
+
+function generate() {
+    let value = document.getElementById('picker').value
+    let unix = new Date(value).getTime()/100000;
+    let code = unix.toString(32);
+    window.location.hash = `#${code}`
+    update();
+}
+
+function update() {
+    let code = window.location.hash.substr(1);
+    if( code === "") {
+        return;
+    }
+    let url = `https://time.phrzn.net/#${code}`
+    document.getElementById("url").href = url;
+    document.getElementById("url").innerText = url;
+    document.getElementById("url").textContent = url;
+    let unix = parseInt(code, 32);
+    let timer = moment(unix*100000).fromNow();
+    document.getElementById("timer").innerText = timer;
+    document.getElementById("timer").textContent = timer;
+    if( Date.now() - (unix*100000) > 0 ) {
+        document.getElementById("timer").className = "red";
+    } else {
+        document.getElementById("timer").className = "green";
+    }
+}
+</script>
+</body>
+</html>
