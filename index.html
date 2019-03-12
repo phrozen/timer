@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         body {
@@ -11,7 +11,7 @@
             min-width: 580px;
             background-color: #101010;
             color: #EAEAEA;
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Helvetica', 'Arial', sans-serif;
             text-align: center;
         }
         hr {
@@ -49,6 +49,7 @@
         }
         #timer {
             font-size: 5rem;
+            font-family: 'Orbitron', sans-serif;
         }
         .red {
             color: #FE1768;
@@ -91,19 +92,15 @@ function ticktack() {
     let m = date.getMinutes();
     let s = date.getSeconds();
     var session = "AM";
-    
     if(h == 0){
         h = 12;
     }
-
     if(h >= 12) {
         session = "PM";
     }
-    
     if(h > 12){
         h = h - 12;
     }
-
     h = (h < 10) ? "0" + h : h;
     m = (m < 10) ? "0" + m : m;
     s = (s < 10) ? "0" + s : s;
