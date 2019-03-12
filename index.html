@@ -70,6 +70,7 @@
     <input type="text" id="picker" placeholder="Select date and time...">
     <button id="generate" onclick="generate();">Generate</button>
     <br><br>
+    <p style="margin:0; color: #666;" id="date"></p>
     <div id="timer"></div>
     <br>
     <p>
@@ -134,6 +135,7 @@ function update() {
     document.getElementById("share").textContent = "Share this timer.";
     let unix = parseInt(code, 32);
     fp.setDate((unix*10).toString(), false, 'U');
+    document.getElementById("date").textContent = new Date(unix*10000);
     let timer = moment(unix*10000).fromNow();
     document.getElementById("timer").textContent = timer;
     if( Date.now() - (unix*10000) > 0 ) {
