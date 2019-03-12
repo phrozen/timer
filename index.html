@@ -120,7 +120,7 @@ function generate() {
 function update() {
     let code = window.location.hash.substr(1);
     if( code === "") {
-        document.getElementById("share").textContent = "Share this timer.";
+        document.getElementById("share").textContent = "";
         return;
     }
     let url = `https://time.phrzn.net/#${code}`
