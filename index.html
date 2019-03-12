@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
@@ -107,7 +109,7 @@ setInterval(update, 1000);
 
 function generate() {
     let value = document.getElementById('picker').value
-    let unix = new Date(value).getTime()/100000;
+    let unix = new Date(value).getTime()/10000;
     let code = unix.toString(32);
     window.location.hash = `#${code}`
     update();
@@ -123,10 +125,10 @@ function update() {
     document.getElementById("url").innerText = url;
     document.getElementById("url").textContent = url;
     let unix = parseInt(code, 32);
-    let timer = moment(unix*100000).fromNow();
+    let timer = moment(unix*10000).fromNow();
     document.getElementById("timer").innerText = timer;
     document.getElementById("timer").textContent = timer;
-    if( Date.now() - (unix*100000) > 0 ) {
+    if( Date.now() - (unix*10000) > 0 ) {
         document.getElementById("timer").className = "red";
     } else {
         document.getElementById("timer").className = "green";
