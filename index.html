@@ -8,7 +8,7 @@
     <style>
         body {
             width: 100%;
-            min-width: 640px;
+            min-width: 580px;
             background-color: #101010;
             color: #EAEAEA;
             font-family: 'Open Sans', sans-serif;
@@ -28,7 +28,9 @@
         }
         #picker, #generate, .flatpickr-input {
             padding: 0 1rem;
+            margin: 1rem 0;
             font-size: 1.5rem;
+            height: 3rem;
             line-height: 3rem;
             border: 1px solid#17D4FE;
         }
@@ -65,7 +67,7 @@
     <hr>
     <input type="text" id="picker" placeholder="Select date and time...">
     <button id="generate" onclick="generate();">Generate</button>
-    <br><br><br>
+    <br><br>
     <div id="timer"></div>
     <br>
     <p>
@@ -106,7 +108,7 @@ function ticktack() {
 ticktack();
 update();
 setInterval(ticktack, 500);
-setInterval(update, 1000);
+setInterval(update, 10000);
 
 function generate() {
     let value = document.getElementById('picker').value
