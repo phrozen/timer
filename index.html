@@ -79,11 +79,11 @@
     
 <script type="text/javascript">
 
-flatpickr("#picker", {
+const fp = flatpickr("#picker", {
     enableTime: true,
     altInput: true,
     dateFormat: "Z",
-    altFormat: "F j, Y at H:i K",
+    altFormat: "F j, Y at h:i K",
 });
 
 function ticktack() {
@@ -127,12 +127,14 @@ function update() {
         document.getElementById("share").textContent = "";
         return;
     }
+
+
     let url = `https://time.phrzn.net/#${code}`
-    
     document.getElementById("url").href = url;
     document.getElementById("url").textContent = url;
     document.getElementById("share").textContent = "Share this timer.";
     let unix = parseInt(code, 32);
+    fp.setDate((unix*10).toString(), false, 'U');
     let timer = moment(unix*10000).fromNow();
     document.getElementById("timer").textContent = timer;
     if( Date.now() - (unix*10000) > 0 ) {
