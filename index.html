@@ -73,7 +73,7 @@
     <p>
         <a href="" id="url"></a>
         <br>
-        Share this timer.
+        <span id="share"></span>
     </p>
     
 <script type="text/javascript">
@@ -102,7 +102,6 @@ function ticktack() {
     m = (m < 10) ? "0" + m : m;
     s = (s < 10) ? "0" + s : s;
     let time = h + ":" + m + ":" + s + " " + session;
-    document.getElementById("clock").innerText = time;
     document.getElementById("clock").textContent = time;
 }
 ticktack();
@@ -121,15 +120,16 @@ function generate() {
 function update() {
     let code = window.location.hash.substr(1);
     if( code === "") {
+        document.getElementById("share").textContent = "Share this timer.";
         return;
     }
     let url = `https://time.phrzn.net/#${code}`
+    
     document.getElementById("url").href = url;
-    document.getElementById("url").innerText = url;
     document.getElementById("url").textContent = url;
+    document.getElementById("share").textContent = "Share this timer.";
     let unix = parseInt(code, 32);
     let timer = moment(unix*10000).fromNow();
-    document.getElementById("timer").innerText = timer;
     document.getElementById("timer").textContent = timer;
     if( Date.now() - (unix*10000) > 0 ) {
         document.getElementById("timer").className = "red";
