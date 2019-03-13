@@ -134,12 +134,12 @@ function update() {
     document.getElementById("url").href = url;
     document.getElementById("url").textContent = url;
     document.getElementById("share").textContent = "Share this timer.";
-    let unix = parseInt(code, 32);
-    //fp.setDate((unix*10).toString(), false, 'U');
-    document.getElementById("date").innerHTML = `This timer is set for:<br>${new Date(unix*10000)}`
-    let timer = moment(unix*10000).fromNow();
+    let unix = parseInt(code, 32) * 10000;
+    let past = Date.now() - unix > 0;
+    document.getElementById("date").innerHTML = `This timer ${ past ? "was" : "is" } set for:<br>${new Date(unix)}`
+    let timer = moment(unix).fromNow();
     document.getElementById("timer").textContent = timer;
-    if( Date.now() - (unix*10000) > 0 ) {
+    if( past ) {
         document.getElementById("timer").className = "red";
     } else {
         document.getElementById("timer").className = "green";
