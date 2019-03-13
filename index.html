@@ -25,14 +25,13 @@
         }
         #clock {
             font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
+            font-size: 4.5rem;
             color: #17D4FE;
         }
         #picker, #generate, .flatpickr-input {
             padding: 0 1rem;
             margin: 1rem 0;
             font-size: 1.5rem;
-            height: 3rem;
             line-height: 3rem;
             border: 1px solid#17D4FE;
         }
@@ -41,6 +40,7 @@
         }
         #picker, .flatpickr-input {
             min-width: 360px;
+            height: 3rem;
             color: #EAEAEA;
             background: #101010;
         }
@@ -65,20 +65,20 @@
     <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
 </head>
 <body>
-    <p style="margin: 0">Your current time.</p>
+    <p style="margin: 0">Your current time:</p>
     <div id="clock"></div>
     <hr>
     <input type="text" id="picker" placeholder="Select date and time...">
     <button id="generate" onclick="generate();">Generate</button>
-    <br>
-    <p style="margin:0; color: #666;" id="date"></p>
+    <br><br>
+    <p style="margin:0; color: #EAEAEA;" id="date"></p>
     <div id="timer"></div>
     <p>
         <a href="" id="url"></a>
         <br>
         <span id="share"></span>
     </p>
-    
+    <hr>
 <script type="text/javascript">
 
 const fp = flatpickr("#picker", {
@@ -107,13 +107,14 @@ function ticktack() {
     m = (m < 10) ? "0" + m : m;
     s = (s < 10) ? "0" + s : s;
     let time = h + ":" + m + ":" + s + " " + session;
+    //let time = h + ":" + m + " " + session;
     document.getElementById("clock").textContent = time;
 }
 
 ticktack();
 update();
-setInterval(ticktack, 500);
-setInterval(update, 10000);
+setInterval(ticktack, 1000);
+setInterval(update, 30000);
 
 function generate() {
     let value = document.getElementById('picker').value
@@ -134,8 +135,8 @@ function update() {
     document.getElementById("url").textContent = url;
     document.getElementById("share").textContent = "Share this timer.";
     let unix = parseInt(code, 32);
-    fp.setDate((unix*10).toString(), false, 'U');
-    document.getElementById("date").textContent = new Date(unix*10000);
+    //fp.setDate((unix*10).toString(), false, 'U');
+    document.getElementById("date").innerHTML = `This timer is set for:<br>${new Date(unix*10000)}`
     let timer = moment(unix*10000).fromNow();
     document.getElementById("timer").textContent = timer;
     if( Date.now() - (unix*10000) > 0 ) {
