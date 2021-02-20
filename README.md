@@ -7,4 +7,4 @@ I couldn't find a simple service online to share events with my friends on mobil
 A single html file uses client side time to set a Unix Timestamp into a short url to share with everyone. Uses Google Fonts [Orbitron](https://fonts.google.com/specimen/Orbitron) for the clock face, [Flatpickr](https://flatpickr.js.org/) and [Moment.js](https://momentjs.com/) from CDN.
 
 Check it out at:
-[https://time.phrzn.net](https://time.phrzn.net)
+[https://phrozen.github.io/timer/](https://phrozen.github.io/timer/)
